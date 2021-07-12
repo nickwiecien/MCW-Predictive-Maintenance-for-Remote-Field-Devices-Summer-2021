@@ -4,7 +4,7 @@ Fabrikam, Inc. creates innovated IoT solutions for the oil and gas manufacturing
 
 They would like to understand their options for expediting the implementation of the PoC. Specifically, they are looking to learn what offerings Azure provides that could enable a quick end-to-end start on the infrastructure for monitoring and managing devices and the system metadata. On top this, they are curious about what other platform services Azure provides that they should consider in this scenario.
 
-May 2021
+July 2021
 
 ## Target audience
 
