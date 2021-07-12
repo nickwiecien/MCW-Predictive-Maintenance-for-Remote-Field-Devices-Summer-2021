@@ -43,13 +43,13 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 ## Requirements
 
 1. Microsoft Azure subscription (non-Microsoft subscription, must be a pay-as-you subscription).
-2. [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+2. [.NET Core 3.1 (SDK 3.1.410 x64 version)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 3. [Visual Studio Code](https://code.visualstudio.com/) version 1.39 or greater
 4. [C# Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
-5. [Azure Functions Core Tools version 2.x (using NPM or Chocolatey - see readme on GitHub repository)](https://github.com/Azure/azure-functions-core-tools)
+5. [Azure Functions Core Tools version 3.x (using NPM or Chocolatey - see readme on GitHub repository)](https://github.com/Azure/azure-functions-core-tools)
 6. [Azure Functions Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 7. An Azure Databricks cluster running Databricks Runtime 5.1 or above.
-8. [Node.js 8.0 or above.](https://nodejs.org)
+8. [Node.js 8.0 or above - Download LTS](https://nodejs.org)
 
 ## Before the hands-on lab
 
@@ -138,7 +138,7 @@ Azure Databricks is used to train and deploy a machine learning model that predi
    | Cluster name               | _enter `lab`_                                                                                |
    | Cluster Mode               | _select `Standard`_                                                                          |
    | Pool                       | _select `None`_                                                                              |
-   | Databricks Runtime Version | _select `Runtime: 7.4 (Scala 2.12, Spark 3.0.1)`_                                         |
+   | Databricks Runtime Version | _select `Runtime: 8.1 (Scala 2.12, Spark 3.1.1)`_                                         |
    | Autopilot Options          | _uncheck `Enable autoscaling` and check `Terminate after...`, with a value of `120` minutes_ |
    | Worker Type                | _select `Standard_DS3_v2`_                                                                   |
    | Driver Type                | _select `Same as worker`_                                                                    |

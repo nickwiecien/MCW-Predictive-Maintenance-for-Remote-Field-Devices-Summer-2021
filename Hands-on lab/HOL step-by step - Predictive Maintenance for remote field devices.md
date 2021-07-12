@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
 
 <div class="MCWHeader1">
-Predictive Maintenance for remote field devices
+Predictive Maintenance for remote field devices - Hackathon Edition (Summer 2021)
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-May 2021
+July 2021
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -59,7 +59,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 1: Create an Azure Function Application](#task-1-create-an-azure-function-application)
     - [Task 2: Create a notification table in Azure Storage](#task-2-create-a-notification-table-in-azure-storage)
     - [Task 3: Create a notification queue in Azure Storage](#task-3-create-a-notification-queue-in-azure-storage)
-    - [Task 4: Create notification service in Microsoft Power Automate](#task-4-create-notification-service-in-microsoft-power-automate)
+    - [Task 4: Create notification service in Azure Logic Apps](#task-4-create-notification-service-in-azure-logic-apps)
     - [Task 5: Obtain connection settings for use with the Azure Function implementation](#task-5-obtain-connection-settings-for-use-with-the-azure-function-implementation)
     - [Task 6: Create the local settings file for the Azure Functions project](#task-6-create-the-local-settings-file-for-the-azure-functions-project)
     - [Task 7: Review the Azure Function code](#task-7-review-the-azure-function-code)
@@ -89,7 +89,7 @@ The Predictive Maintenance for Remote Field Devices hands-on lab is an exercise 
 
 ![The architecture diagram shows the components of the preferred solution.](media/preferred-solution.png "High-level architecture")
 
-[Azure IoT Central](https://docs.microsoft.com/azure/iot-central/overview-iot-central) is at the core of the preferred solution. It is used for data ingest, device management, data storage, and reporting. IoT field devices securely connect to IoT Central through its cloud gateway. The continuous export component sends device telemetry data to [Azure Blob storage](https://docs.microsoft.com/azure/storage/blobs/storage-blobs-overview) for cold storage, and the same data to [Azure Event Hubs](https://docs.microsoft.com/azure/event-hubs/event-hubs-about) for real-time processing. Azure Databricks uses the data stored in cold storage to periodically re-train a Machine Learning (ML) model to detect oil pump failures. It is also used to deploy the trained model to a web service hosted by [Azure Kubernetes Service](https://docs.microsoft.com/azure/aks/) (AKS) or [Azure Container Instances](https://docs.microsoft.com/azure/container-instances/) (ACI), using [Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/service/overview-what-is-azure-ml). An [Azure function](https://docs.microsoft.com/azure/azure-functions/functions-overview) is triggered by events flowing through Event Hubs. It sends the event data for each pump to the web service hosting the deployed model, then sends an alert through [Microsoft Power Automate](https://flow.microsoft.com/) if an alert has not been sent within a configurable period of time. The alert is sent in the form of an email, identifying the failing oil pump with a suggestion to service the device.
+[Azure IoT Central](https://docs.microsoft.com/azure/iot-central/overview-iot-central) is at the core of the preferred solution. It is used for data ingest, device management, data storage, and reporting. IoT field devices securely connect to IoT Central through its cloud gateway. The continuous export component sends device telemetry data to [Azure Blob storage](https://docs.microsoft.com/azure/storage/blobs/storage-blobs-overview) for cold storage, and the same data to [Azure Event Hubs](https://docs.microsoft.com/azure/event-hubs/event-hubs-about) for real-time processing. Azure Databricks uses the data stored in cold storage to periodically re-train a Machine Learning (ML) model to detect oil pump failures. It is also used to deploy the trained model to a web service hosted by [Azure Kubernetes Service](https://docs.microsoft.com/azure/aks/) (AKS) or [Azure Container Instances](https://docs.microsoft.com/azure/container-instances/) (ACI), using [Azure Machine Learning](https://docs.microsoft.com/azure/machine-learning/service/overview-what-is-azure-ml). An [Azure function](https://docs.microsoft.com/azure/azure-functions/functions-overview) is triggered by events flowing through Event Hubs. It sends the event data for each pump to the web service hosting the deployed model, then sends an alert through [Azure Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) if an alert has not been sent within a configurable period of time. The alert is sent in the form of an email, identifying the failing oil pump with a suggestion to service the device.
 
 _Azure IoT Central architecture_
 
@@ -586,7 +586,7 @@ After training the model, we validate it, then register the model in your Azure 
 
 Duration: 45 minutes
 
-We will be using an Azure Function to read incoming telemetry from IoT Hub and send it to the HTTP endpoint of our predictive maintenance model. The function will receive a 0 or 1 from the model indicating whether or not a pump should be maintained to avoid possible failure. A notification will also be initiated through Flow to notify Field Workers of the maintenance required.
+We will be using an Azure Function to read incoming telemetry from IoT Hub and send it to the HTTP endpoint of our predictive maintenance model. The function will receive a 0 or 1 from the model indicating whether or not a pump should be maintained to avoid possible failure. A notification will also be initiated through Azure Logic Apps to notify Field Workers of the maintenance required.
 
 ### Task 1: Create an Azure Function Application
 
@@ -640,7 +640,7 @@ One of the things we would like to avoid is sending repeated notifications to th
 
 ### Task 3: Create a notification queue in Azure Storage
 
-There are many ways to trigger flows in Microsoft Power Automate. One of them is monitoring an Azure Queue. We will use a Queue in our Azure Storage Account to host this queue.
+There are many ways to trigger flows in Azure Logic Apps. One of them is monitoring an Azure Queue. We will use a Queue in our Azure Storage Account to host this queue.
 
 1. From the Storage Account left-hand menu, select **Queues** located beneath the _Data storage_ section, then select the **+ Queue** button, and create a new queue named **flownotificationqueue**.
 
@@ -650,59 +650,75 @@ There are many ways to trigger flows in Microsoft Power Automate. One of them is
 
    ![The pump function access key information is displayed. Key 1 is circled.](media/copy-function-storage-access-key.png "Copy access key for the Storage Account")
 
-### Task 4: Create notification service in Microsoft Power Automate
+### Task 4: Create notification service in Azure Logic Apps
 
-We will be using [Microsoft Power Automate](https://flow.microsoft.com/) as a means to email notifications to the workforce in the field. This flow will respond to new messages placed on the queue that we created in Task 3.
+We will be using [Azure Logic Apps](https://azure.microsoft.com/en-us/services/logic-apps/) as a means to email notifications to the workforce in the field. This flow will respond to new messages placed on the queue that we created in Task 3.
 
-1. Access [Microsoft Power Automate](https://flow.microsoft.com) and sign in (create an account if you don't already have one).
+1. Return to the [Azure Portal](https://portal.azure.com).
 
-2. From the left-hand menu, select **+ Create**, then choose **Instant cloud flow**.
+2. Open your resource group for this lab.
 
-   ![Options for creating a flow are displayed. The Instant cloud flow item is highlighted.](media/create-flow-menu.png "Create Instant cloud flow")
+3. From the top menu, select the **+ Add** button, and search for Logic App (Consumption).
 
-3. When the dialog displays, select the **Skip** link at the bottom to dismiss it.
+4. Configure your logic app as follows, select the *Review + create* button, and then **Create**:
 
-   ![An informational dialog is displayed. The skip button is highlighted.](media/instant-flow-skip-dialog.png "Dismiss Dialog")
+   | Field          | Value                                 |
+   | -------------- | ------------------------------------- |
+   | Logic App name           | _anything (must be globally unique)_    |
+   | Select the location   | Region                              |
+   | Subscription   | _select the appropriate subscription_ |
+   | Resource Group | Fabrikam_Oil                          |
+   | Location       | _select the location nearest to you_  |
+   | Associated with integration service environment       | _Leave unchecked_  |
+   | Enable Log Analytics      | _Leave unchecked_  |
 
-4. From the search bar, type _queue_ to filter connectors and triggers. Then, select the **When there are messages in a queue** item from the filtered list of Triggers.
+   ![The logic app creation options are displayed.](media/logic-app-create.png "Configure Logic App")
 
-   ![The trigger dialog is displayed. Create a trigger to respond to a message in the Azure Queue is selected.](media/select-flow-trigger-type.png "Select Queue Trigger")
+5. Go to the resource and from the Logic Apps Designer, scroll to **Templates** and click **Blank Logic App**.
 
-5. Fill out the form as follows, then select the **Create** button:
+   ![The available templates are displayed, click Blank Logic App.](media/logic-app-blank-template.png "Select Blank Template")
 
-   | Field                | Value                                      |
-   | -------------------- | ------------------------------------------ |
-   | Connection Name      | Notification Queue                         |
-   | Storage Account Name | _enter the generated storage account name_ |
-   | Shared Storage Key   | _paste the Key value recorded in Task 3_   |
+6. From the Choose an action panel type _Azure Queues_ in the search box. Select the **When there are messages in a queue (V2) (preview)** item from the filtered list of triggers.
 
-   ![The queue connection configuration fields are displayed. The create button is circled.](media/create-flow-queue-step.png "Create Queue Step")
+   ![Available actions are displayed, enter Azure queues and click When there are messages in queue (V2) (preview) option.](media/logic-app-messages-in-queue.png "Select Messages in Queue")
 
-6. In the queue step, select the **flownotificationqueue** item, then select the **+ New step** button.
+7. When prompted to connect to a storage account, enter _Notification Queue_ as the connection name, select _Access Key_ as the authentication type, enter the name of the storage account created in Task 3, add the associated access key (this can be found in the Azure portal by navigating to the storage account resource and selecting the _Access keys_ tab from the sidebar menu). Click **Create** once you have entered this information.
 
-   ![Message queue step event dialog is displayed. The New step button is circled.](media/create-flow-select-queue.png "Select Queue")
+   ![Connect to storage account.](media/logic-app-queue-connection.png "Connect to Storage Account")
 
-7. In the search box for the next step, search for _email_, then select the **Send an email notification (V3)** item from the filtered list of Actions.
+8. Once your connection has been created, select the storage account and *flownotificationqueue* under Queue Name. Under _How often do you want to check for items?_ change your settings to _1 Minute_ to check the queue once every minute. After you have updated these settings click **+ New step**.
 
-   ![A list of available actions displayed. The Send an email action is circled.](media/create-flow-email-step.png "Create email notification action")
+   ![Messages in queue action configuration.](media/logic-app-confirm-queue-setup.png "Finalize Queue Action Configuration.")
 
-8. You may need to accept the terms and conditions of the SendGrid service, a free service that provides the underlying email capabilities of this email step.
 
-9. In the Send an email notification (v3) form, fill it out as follows, then select the **+ New Step** button.
+9. From the search bar, type _Outlook 365_ to filter connectors and triggers. Then, select the **Send an email (V2)** item from the filtered list of actions.
 
-   | Field      | Value                                                                                |
+   ![Available actions are displayed for Office Outlook 365.](media/logic-app-send-email.png "Select Send an Email")
+
+10. From the Office 365 Outlook action panel, click **Sign in** to create a connection to your outlook account. 
+
+   ![Office 365 Outlook sign in required.](media/logic-app-email-sign-in.png "Click Sign in")
+
+11. When prompted, connect to your existing account. 
+> **Note:** You may choose to use your corporate account for this step and it may be necessary to complete from the Azure portal accessed from your local machine.
+
+   ![Sign in prompt is displayed.](media/logic-app-email-credentials.png "Sign in to your Outlook account")
+
+12. In the Send an email (V2) form, fill it out as follows then click **+New step**.
+
+  | Field      | Value                                                                                |
    | ---------- | ------------------------------------------------------------------------------------ |
    | To         | _enter your email address_                                                           |
    | Subject    | Action Required: Pump needs maintenance                                              |
    | Email Body | _put cursor in the field, then select **Message Text** from the Dynamic Content menu_ |
 
-   ![The Flow action for sending an email is displayed. The message text option and New step button are circled.](media/create-flow-email-form.png "Email form")
+   ![Send email configuration is displayed.](media/logic-app-email-config.png "Create email notification action")
 
-10. In the search bar for the next step, search for _queue_ once more, then select the **Delete message** item from the filtered list of Actions.
+13. In the search bar for the next step, search for _Azure Queues_ once more, then select the **Delete message (V2) (preview)** item from the filtered list of Actions.
 
-    ![The Flow Action pane is displayed. The queue text is listed in the search field.](media/create-flow-delete-message-step.png "Delete queue message step")
+   ![The action pane is displayed. The queue text is listed in the search field.](media/logic-app-delete-message.png "Delete queue message step")
 
-11. In the Delete message form, fill it out as follows, then select the **Save** button.
+14. In the Delete message form, fill it out as follows, then select the **Save** button.
 
     | Field       | Value                                                                               |
     | ----------- | ----------------------------------------------------------------------------------- |
@@ -710,11 +726,11 @@ We will be using [Microsoft Power Automate](https://flow.microsoft.com/) as a me
     | Message ID  | _put cursor in the field, then select **Message ID** from the Dynamic Content menu_  |
     | Pop Receipt | _put cursor in the field, then select **Pop Receipt** from the Dynamic Content menu_ |
 
-    ![The Flow dialog displays the Delete message step. Message ID and Pop Receipt fields are populated. The Save button is circled. The available dynamic content pane has the available fields listed.](media/create-flow-delete-message-form.png "Delete queue message form")
+    ![The dialog displays the Delete message step. Message ID and Pop Receipt fields are populated. The Save button is circled. The available dynamic content pane has the available fields listed.](media/logic-app-delete-message-config.png "Delete queue message form")
 
-12. Microsoft Power Automate will automatically name the Flow. You are able to edit this Flow in the future by selecting **My flows** from the left-hand menu.
+15. Your completed logic app should look like what is shown below. Click the **Save** button from the top of the designer page.
 
-    ![The Azure Flow blade is displayed. In the left pane, the My flows link is circled. The Send an email step is circled.](media/new-flow-created.png "New Flow created")
+    ![Completed logic app with three steps is displayed. Save button is circled in red.](media/logic-app-full-setup.png "Full logic app setup")
 
 ### Task 5: Obtain connection settings for use with the Azure Function implementation
 
@@ -854,8 +870,3 @@ Duration: 10 minutes
 
    ![The Azure Resource Group panel is displayed. The Delete resource group link is circled.](media/delete-resource-group.png "Delete the Resource Group")
 
-2. Delete Microsoft Power Automate flow that we created. Access [Microsoft Power Automate](https://flow.microsoft.com) and login. From the left-hand menu, select **My flows**. Select the ellipsis button next to the flow we created in this lab and select **Delete**.
-
-   ![The Power Automate Flows panel is displayed. The ellipsis and delete links are circled.](media/delete-flow.png "Delete Microsoft Power Automate Flow")
-
-You should follow all steps provided *after* attending the Hands-on lab.
