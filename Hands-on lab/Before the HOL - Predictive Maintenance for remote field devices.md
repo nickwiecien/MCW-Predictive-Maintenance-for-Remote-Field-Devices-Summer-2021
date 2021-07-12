@@ -29,12 +29,13 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - [Predictive Maintenance for remote field devices before the hands-on lab setup guide](#predictive-maintenance-for-remote-field-devices-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Task 1: Download the lab files](#task-1-download-the-lab-files)
-    - [Task 2: Provision a resource group](#task-2-provision-a-resource-group)
-    - [Task 3: Create an Azure Databricks service](#task-3-create-an-azure-databricks-service)
-    - [Task 4: Create Azure Databricks cluster](#task-4-create-azure-databricks-cluster)
-    - [Task 5: Import lab notebook into Azure Databricks](#task-5-import-lab-notebook-into-azure-databricks)
-    - [Task 6: Create Azure Machine Learning service workspace](#task-6-create-azure-machine-learning-service-workspace)
+    - [Task 1: Log into your Azure Virtual Machine](#task-1-log-into-your-azure-virtual-machine)
+    - [Task 2: Download the lab files](#task-2-download-the-lab-files)
+    - [Task 3: Provision a resource group](#task-3-provision-a-resource-group)
+    - [Task 4: Create an Azure Databricks service](#task-4-create-an-azure-databricks-service)
+    - [Task 5: Create Azure Databricks cluster](#task-5-create-azure-databricks-cluster)
+    - [Task 6: Import lab notebook into Azure Databricks](#task-6-import-lab-notebook-into-azure-databricks)
+    - [Task 7: Create Azure Machine Learning service workspace](#task-7-create-azure-machine-learning-service-workspace)
 
 <!-- /TOC -->
 
@@ -59,7 +60,11 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 > **Important**: Most Azure resources require unique names. Throughout this lab you will see the word “SUFFIX” as part of resource names. You should replace this with your Microsoft alias, initials, or another value to ensure the resource is uniquely named.
 
-### Task 1: Download the lab files
+### Task 1: Log into your Azure Virtual Machine
+
+Populate section with details on logging into assigned Azure VM & installing required packages...
+
+### Task 2: Download the lab files
 
 Download the lab artifacts from GitHub.
 
@@ -71,7 +76,7 @@ Download the lab artifacts from GitHub.
 
 3. Unzip the contents to your root hard drive (i.e., `C:\`). This will create a folder on your root drive named `MCW-Predictive-Maintenance-for-remote-field-devices-master`.
 
-### Task 2: Provision a resource group
+### Task 3: Provision a resource group
 
 In this task, you will create an Azure resource group for the resources used throughout this lab.
 
@@ -93,7 +98,7 @@ In this task, you will create an Azure resource group for the resources used thr
 
 6. On the Summary blade, select **Create** to provision your resource group.
 
-### Task 3: Create an Azure Databricks service
+### Task 4: Create an Azure Databricks service
 
 Azure Databricks is used to train and deploy a machine learning model that predicts an oil pump failure, based on incoming telemetry.
 
@@ -119,7 +124,7 @@ Azure Databricks is used to train and deploy a machine learning model that predi
 
 5. Select **Review + Create**. On the review screen, select **Create**.
 
-### Task 4: Create Azure Databricks cluster
+### Task 5: Create Azure Databricks cluster
 
 1. In the [Azure portal](https://portal.azure.com), open your Azure Databricks service you created in the previous task.
 
@@ -148,7 +153,7 @@ Azure Databricks is used to train and deploy a machine learning model that predi
 
 5. Select **Create Cluster**.
 
-### Task 5: Import lab notebook into Azure Databricks
+### Task 6: Import lab notebook into Azure Databricks
 
 In this task, you will import a Databricks notebook into your workspace.
 
@@ -164,7 +169,7 @@ In this task, you will import a Databricks notebook into your workspace.
 
    ![The imported notebooks are displayed.](media/databricks-notebooks.png 'Imported notebooks')
 
-### Task 6: Create Azure Machine Learning service workspace
+### Task 7: Create Azure Machine Learning service workspace
 
 1. Navigate to the [Azure portal](https://portal.azure.com).
 
