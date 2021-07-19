@@ -68,7 +68,7 @@ Populate section with details on logging into assigned Azure VM & installing req
 
 Download the lab artifacts from GitHub.
 
-1. In a web browser, navigate to the [Predictive Maintenance for remote field devices GitHub repo](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices).
+1. In a web browser, navigate to the [Predictive Maintenance for remote field devices GitHub repo](https://github.com/nickwiecien/MCW-Predictive-Maintenance-for-Remote-Field-Devices-Summer-2021).
 
 2. On the repo page, expand the **Code**, then select **Download ZIP**.
 
