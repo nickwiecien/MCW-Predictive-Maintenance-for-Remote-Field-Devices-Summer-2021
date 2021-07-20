@@ -866,7 +866,7 @@ Nice work getting to this point! To observe your predictive maintenance solution
 
 1. Stop execution of your Field Device Simulator by entering **Ctrl+C** or clicking the stop button inside Visual Studio Code.
 
-2. From the Azure Portal, navigate to the storage account which contains your notification table. The name will start with "storageaccountfab" and was referenced in Exercise 5 - Task 2.
+2. From the Azure Portal, navigate to the storage account which contains your notification table. The name will start with "storageaccount" and was referenced in Exercise 5 - Task 2.
 
 3. From the storage account, select **Storage Explorer (preview)** from the sidebar menu, and then click into the DeviceNotifications table underneath *TABLES*. For each row of data listed, right-click and select **Delete**. This step removes the records of any alerts being sent and will allow another set of notifications to be sent within a 24-hour time period.
 
