@@ -109,7 +109,7 @@ The diagram above shows the components of IoT Central's architecture that pertai
 
 ## Before the hands-on lab
 
-Refer to the [Before the hands-on lab setup guide](./Before%20the%20HOL%20-%20Predictive%20Maintenance%20for%20Remote%20Field%20Devices.md) manual before continuing to the lab exercises.
+Refer to the [Before the hands-on lab setup guide](https://github.com/nickwiecien/MCW-Predictive-Maintenance-for-Remote-Field-Devices-Summer-2021/blob/main/Hands-on%20lab/Before%20the%20HOL%20-%20Predictive%20Maintenance%20for%20remote%20field%20devices.md) manual before continuing to the lab exercises.
 
 ## Exercise 1: Configuring IoT Central with devices and metadata
 
