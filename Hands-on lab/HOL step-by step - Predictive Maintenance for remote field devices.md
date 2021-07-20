@@ -243,7 +243,7 @@ The telemetry being reported by the Fabrikam rod pumps are as follows, we will b
 
     ![The Device templates Views screen is shown with the Visualizing the device card highlighted.](media/device-template-add-new-view.png "Device template views")
 
-15. A View is composed of one or more tiles that display information related to a specific device. In the Edit view form, set the _View name_ to _Dashboard_. Then expand the _Telemetry_ drop down and select each item individually, then choosing the _Add tile_ button to add the chart to the View surface. Feel free to arrange the tiles as desired on the View design surface.
+15. A View is composed of one or more tiles that display information related to a specific device. In the Edit view form, set the _View name_ to _Dashboard_. Under _Add a tile_ select the _Start with devices_ tab. Then expand the _Telemetry_ drop down and select each item individually, then choosing the _Add tile_ button to add the chart to the View surface. Feel free to arrange the tiles as desired on the View design surface.
 
     ![The device template Dashboard edit screen is shown, with an item selected in the Telemetry section, and the Add tile button highlighted.](media/view-adding-telemetry-tiles-view.png "Composing a device view")
 
@@ -253,7 +253,7 @@ The telemetry being reported by the Fabrikam rod pumps are as follows, we will b
 
 17. Spend some time now and investigate the various visualizations and settings you can set on each tile. For instance, you have the ability to customize chart types, colors and axes. You can also resize each tile individually. Select the _Save_ button in the toolbar menu to save the `Dashboard` view.
 
-18. On the `Rod Pump` device template screen, select the `Views` item from the central navigation pane, and choose `Visualizing the device` once again to create a new view. Name this view, `Command` and add a tile for the `Toggle Motor Power` command. Once complete, press the `Save` button in the toolbar. This View will allow pump operators to initiate the toggle power command from the IoT Central application.
+18. On the `Rod Pump` device template screen, select the `Views` item from the central navigation pane, and choose `Visualizing the device` once again to create a new view. Name this view, `Command`, select the _Start with devices_ tab and add a tile for the `Toggle Motor Power` command. Once complete, press the `Save` button in the toolbar. This View will allow pump operators to initiate the toggle power command from the IoT Central application.
 
 19. Finally, we can add a thumbnail image to represent the equipment. Select on the circle icon to left of the template name. This will allow you to select an image file. The image used in this lab can be found on [PixaBay](https://pixabay.com/photos/refinery-pump-oil-pump-industry-514010/). After setting the thumbnail, select the `Publish` button in the device template toolbar.
 
@@ -418,9 +418,9 @@ One of the main features of IoT Central is the ability to visualize the health o
 
 ### Task 2: Add your company logo
 
-1. Remaining in the edit mode of the dashboard, select _Image_ from the _Custom tiles_ section of the menu. Select _Add tile_.
+1. Remaining in the edit mode of the dashboard, select _Image (static)_ from the list availabe under the _Start with a visual_ section of the menu. Select _Add tile_.
 
-    ![The Custom tiles items are displayed. The Image item is checked.](media/dashboard-library-image.png "Custom tiles")
+    <!-- ![The Custom tiles items are displayed. The Image item is checked.](media/dashboard-library-image.png "Custom tiles") -->
 
 2. Once the tile is added to the design surface, expand the ellipsis menu on the tile, and select _Configure_. Configure the logo with the following file _C:\MCW-Predictive-Maintenance-for-remote-field-devices-master\Hands-on lab\media\fabrikam-logo.png_. Select the _Update_ button once complete.
 
@@ -434,7 +434,7 @@ One of the main features of IoT Central is the ability to visualize the health o
 
 In the previous exercise, we created a device group that contains the devices located in Texas. We will leverage this device set to display this filtered information.
 
-1. Remaining in the edit dashboard mode, select _Texas Rod Pumps_ from the _Device group_ dropdown, then select each of the devices in the _Devices_ list.
+1. Remaining in the edit dashboard mode, select _Texas Rod Pumps_ from the _Device group_ dropdown under the _Start with devices_ tab, then select each of the devices in the _Devices_ list.
 
 2. In the _Property_ section, select the _Serial Number_, and _IP Address_ properties. Add properties by selecting the _+ Property_ button. Once complete, select the _Add tile_ button.
 
@@ -578,7 +578,7 @@ After training the model, we validate it, then register the model in your Azure 
 
 6. You may use keyboard shortcuts to execute the cells, such as **Ctrl+Enter** to execute a single cell, or **Shift+Enter** to execute a cell and move to the next one below.
 
-7. Run all of the cells in the notebook and read the instructions and explanations to understand how the model is trained and deployed. You will need to provide values in the `Cmd 56` cell.
+7. Run all of the cells in the notebook and read the instructions and explanations to understand how the model is trained and deployed. You will need to provide values in the `Cmd 56` cell. Note: the required values here can be found by navigating to the _Overview_ tab of the Azure Machine Learning resource you provisioned in the _Before the Hands-on-Lab_ section.
 
 8. Copy the scoring web service URL from the last cell's result after executing it. You will use this value to update a setting in your Azure function in the next exercise to let it know where the model is deployed.
 
@@ -859,6 +859,20 @@ It is recommended that you never check in secrets, such as connection strings, i
 7. Returning to the Azure Portal, in the **Fabrikam_Oil** resource group, open the **pumpfunctions** function app and observe that our function that we created in Visual Studio Code has been deployed.
 
    ![The Azure Portal Function Application overview window is displayed with the pumpfunctions application expanded. The functions node is also expanded and the function named PumpFailurePrediction is highlighted.](media/azurefunctiondeployed.png "Functions node is expanded")
+
+## Watch it in action (Optional)
+
+Nice work getting to this point! To observe your predictive maintenance solution in action using all of the deployed Azure services complete the following:
+
+1. Stop execution of your Field Device Simulator by entering **Ctrl+C** or clicking the stop button inside Visual Studio Code.
+
+2. From the Azure Portal, navigate to the storage account which contains your notification table. The name will start with "storageaccountfab" and was referenced in Exercise 5 - Task 2.
+
+3. From the storage account, select **Storage Explorer (preview)** from the sidebar menu, and then click into the DeviceNotifications table underneath *TABLES*. For each row of data listed, right-click and select **Delete**. This step removes the records of any alerts being sent and will allow another set of notifications to be sent within a 24-hour time period.
+
+4. Restart your Field Device Simulator by entering **F5** inside Visual Studio Code. Select `1` as the operation to perform once again.
+
+5. From IoT Central, you should be able to observe your streaming data and devices performing at high levels soon after restarting the simulator. Note: if your device is performing at a "low" level try cycling the power under the *Commands* tab. Once performance begins to degrade you should expect to receive automated alerts.
 
 ## After the hands-on lab
 

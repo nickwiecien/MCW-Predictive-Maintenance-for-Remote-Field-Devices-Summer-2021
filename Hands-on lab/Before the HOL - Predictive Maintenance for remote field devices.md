@@ -44,7 +44,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 ## Requirements
 
 1. Microsoft Azure subscription (non-Microsoft subscription, must be a pay-as-you subscription).
-2. [.NET Core 3.1 (SDK 3.1.410 x64 version)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+2. [.NET Core 3.1 (SDK 3.1.411 x64 version)](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 3. [Visual Studio Code](https://code.visualstudio.com/) version 1.39 or greater
 4. [C# Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 5. [Azure Functions Core Tools version 3.x (using NPM or Chocolatey - see readme on GitHub repository)](https://github.com/Azure/azure-functions-core-tools)
@@ -62,7 +62,7 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 ### Task 1: Log into your Azure Virtual Machine
 
-Populate section with details on logging into assigned Azure VM & installing required packages...
+Sign into the Azure VM which has been created for you using Remote Desktop
 
 ### Task 2: Download the lab files
 
