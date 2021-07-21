@@ -76,11 +76,13 @@ Download the lab artifacts from GitHub.
 
 3. Unzip the contents to your root hard drive (i.e., `C:\`). This will create a folder on your root drive named `MCW-Predictive-Maintenance-for-remote-field-devices-master`.
 
-### Task 3: Provision a resource group
+### Task 3: Identify your resource group
 
-In this task, you will create an Azure resource group for the resources used throughout this lab.
+In this task, you will navigate to the Azure resource group you will deploy resources into throughout this lab. This resource group should correspond to your assigned team number.
 
-1. Log into the [Azure Portal](https://portal.azure.com).
+> **Note**: The resource group name used throughout this lab is *Fabrikam_Oil*. When deploying new resources, always select your assigned resource group. 
+
+<!-- 1. Log into the [Azure Portal](https://portal.azure.com).
 
 2. On the top-left corner of the portal, select the menu icon to display the menu.
 
@@ -96,7 +98,7 @@ In this task, you will create an Azure resource group for the resources used thr
 
    ![Create Resource Group](media/create-resource-group.png 'Resource Group')
 
-6. On the Summary blade, select **Create** to provision your resource group.
+6. On the Summary blade, select **Create** to provision your resource group. -->
 
 ### Task 4: Create an Azure Databricks service
 
