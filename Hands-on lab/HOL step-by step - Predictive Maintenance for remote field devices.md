@@ -619,6 +619,8 @@ We will be using an Azure Function to read incoming telemetry from IoT Hub and s
     | Operating System | Windows |
     | Plan Type | Consumption (Serverless)                                     |
 
+> **Important**: Record the name of your storage account created here. Multiple storage accounts will be created in your resource group - it will be helpful to know which account aligns to your function app.
+
     ![The create Function App blade is displayed. All of the Function App configurations are displayed.  The create button is circled.](media/create-azure-function-app-form2.png "Create Azure Function App")
 
 6. On the Review blade, select **Create**, then **wait until the Function App is created** before continuing.
