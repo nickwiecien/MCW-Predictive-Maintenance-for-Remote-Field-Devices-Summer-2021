@@ -155,7 +155,7 @@ The telemetry being reported by the Fabrikam rod pumps are as follows, we will b
     | Resource name   | _enter a globally unique name_   |
     | Application URL | _keep the default_ |
     | Subscription | _select the appropriate subscription_ |
-    | Resource group | _select `Fabrikam_Oil`_ |
+    | Resource group | _select `YOUR_RESOURCE_GROUP`_ |
     | Pricing plan | _select `Standard 2`_ |
     | Template | _select `Custom application`_ |
     | Location | _select the location nearest to you_ |
@@ -166,7 +166,7 @@ The telemetry being reported by the Fabrikam rod pumps are as follows, we will b
 
 ### Task 3: Create the Device Template
 
-1. In the Azure Portal, open the `Fabrikam_Oil` resource group. Select the IoT Central Application resource from the listing.
+1. In the Azure Portal, open your assigned resource group. Select the IoT Central Application resource from the listing.
 
    ![The Fabrikam_Oil resource group listing is shown with the IoT Central Application highlighted.](media/iot-central-application-resource-list.png "Fabrikam_Oil resource listing")
 
@@ -466,7 +466,7 @@ IoT Central provides a great first stepping stone into a larger IoT solution. A 
 
 The Event Hub we will be creating will act as a collector for data coming into IoT Central. The receipt of a message into this hub will ultimately serve as a trigger to send data into a machine learning model to determine if a pump is in a failing state. We will also create a Consumer Group on the event hub to serve as an input to an Azure Function that will be created later on in this lab.
 
-1. Log into the [Azure Portal](https://portal.azure.com), and open your **Fabrikam_Oil** resource group.
+1. Log into the [Azure Portal](https://portal.azure.com), and open your assigned resource group.
 
 2. On the top of the screen, select the **Add** button. When the marketplace screen displays, search for and select **Event Hubs**. This will allow you to create a new Event Hub Namespace resource. Select the _Create_ button on the resource overview screen.
 
@@ -477,7 +477,7 @@ The Event Hub we will be creating will act as a collector for data coming into I
    | Field          | Value                                 |
    | -------------- | ------------------------------------- |
    | Subscription   | _select the appropriate subscription_ |
-   | Resource Group | Fabrikam_Oil                          |
+   | Resource Group | YOUR_RESOURCE_GROUP                         |
    | Name           | _anything (must be globally unique)_  |
    | Location       | _select the location nearest to you_  |
    | Pricing Tier   | Standard                              |
@@ -602,7 +602,7 @@ We will be using an Azure Function to read incoming telemetry from IoT Hub and s
     | ------------- | ----------------------------------------------- |
     | App Name      | _your choice, must be globally unique_          |
     | Subscription  | _select the appropriate subscription_           |
-    | Resource Group | use existing, and _select Fabrikam_Oil_           |
+    | Resource Group | use existing, and _select YOUR_RESOURCE_GROUP_           |
     | Publish       | _select Code_ |
     | Runtime Stack | _select .Net_                                       |
     | Version | _select 3.1_ |
@@ -626,7 +626,7 @@ We will be using an Azure Function to read incoming telemetry from IoT Hub and s
 
 One of the things we would like to avoid is sending repeated notifications to the workforce in the field. Notifications should only be sent once every 24-hour period per device. To keep track of when a notification was last sent for a device, we will use a table in a Storage Account.
 
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the left-hand menu, then select the **Fabrikam_Oil** link from the listing.
+1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the left-hand menu, then select your resource group link from the listing.
 
 2. Select the link for the storage account that was created with the Function App in Task 1. The name will start with "storageaccount".
 
@@ -667,7 +667,7 @@ We will be using [Azure Logic Apps](https://azure.microsoft.com/en-us/services/l
    | Logic App name           | _anything (must be globally unique)_    |
    | Select the location   | Region                              |
    | Subscription   | _select the appropriate subscription_ |
-   | Resource Group | Fabrikam_Oil                          |
+   | Resource Group | YOUR_RESOURCE_GROUP                          |
    | Location       | _select the location nearest to you_  |
    | Associated with integration service environment       | _Leave unchecked_  |
    | Enable Log Analytics      | _Leave unchecked_  |
@@ -734,7 +734,7 @@ We will be using [Azure Logic Apps](https://azure.microsoft.com/en-us/services/l
 
 ### Task 5: Obtain connection settings for use with the Azure Function implementation
 
-1. Once the Function App has been provisioned, open the **Fabrikam_Oil** resource group and select the link for the storage account that was created with the Function App in Task 1. The name will start with "storageaccount".
+1. Once the Function App has been provisioned, open your assigned resource group and select the link for the storage account that was created with the Function App in Task 1. The name will start with "storageaccount".
 
    ![The resources are listed in the blade. The storage account is circled.](media/select-function-storage-account.png "Select the Storage Account")
 
@@ -742,7 +742,7 @@ We will be using [Azure Logic Apps](https://azure.microsoft.com/en-us/services/l
 
    ![The pump function access keys are displayed. Key 1 is circled. The copy button for Connection string value is circled.](media/copy-function-storage-access-key-connection-string.png "Copy Function Storage Connection String")
 
-3. Return to the **Fabrikam_Oil** resource group and select the link for the Event Hubs Namespace.
+3. Return to your assigned resource group and select the link for the Event Hubs Namespace.
 
    ![A screen displays Azure resources. Event hub is circled.](media/select-event-hubs-namespace.png "Select the Event Hubs Namespace")
 
@@ -811,7 +811,7 @@ It is recommended that you never check in secrets, such as connection strings, i
 
 ### Task 9: Prepare the Azure Function App with settings
 
-1. In Task 6, we created a local settings file to hold environment variables that are used in our function code. We need to mirror these values in the Azure Function App as well. In the Azure portal, access the **Fabrikam_Oil** resource group, and open the **pumpfunctions** Function Application.
+1. In Task 6, we created a local settings file to hold environment variables that are used in our function code. We need to mirror these values in the Azure Function App as well. In the Azure portal, access your assigned resource group, and open the **pumpfunctions** Function Application.
 
 2. Select the **Configuration** option in the left-hand menu.
 
@@ -856,7 +856,7 @@ It is recommended that you never check in secrets, such as connection strings, i
 
    ![A notification is shown indicating the deployment to pumpfunctions has completed.](media/funcdeploycompleted.png "Deployment to pumpfunctions completed")
 
-7. Returning to the Azure Portal, in the **Fabrikam_Oil** resource group, open the **pumpfunctions** function app and observe that our function that we created in Visual Studio Code has been deployed.
+7. Returning to the Azure Portal, in your assigned resource group, open the **pumpfunctions** function app and observe that our function that we created in Visual Studio Code has been deployed.
 
    ![The Azure Portal Function Application overview window is displayed with the pumpfunctions application expanded. The functions node is also expanded and the function named PumpFailurePrediction is highlighted.](media/azurefunctiondeployed.png "Functions node is expanded")
 
@@ -880,7 +880,8 @@ Duration: 10 minutes
 
 ### Task 1: Delete Lab Resources
 
-1. In the [Azure Portal](https://portal.azure.com), select **Resource Groups**, open the resource group that you created in Exercise 6, and select the **Delete resource group** button.
+<!-- 1. In the [Azure Portal](https://portal.azure.com), select **Resource Groups**, open the resource group that you created in Exercise 6, and select the **Delete resource group** button.
 
-   ![The Azure Resource Group panel is displayed. The Delete resource group link is circled.](media/delete-resource-group.png "Delete the Resource Group")
+   ![The Azure Resource Group panel is displayed. The Delete resource group link is circled.](media/delete-resource-group.png "Delete the Resource Group") -->
+1. After completing the lab, you can delete the resources which you no longer intend to use on a case-by-case basis. This can be done by selecting individual resources and clicking the **Delete** button - type _yes_ to proceed with deletion. After completion of the event, all resources will be deleted.
 

@@ -62,7 +62,7 @@ In the Before the hands-on lab exercise, you will set up your environment for us
 
 ### Task 1: Log into your Azure Virtual Machine
 
-Sign into the Azure VM which has been created for you using Remote Desktop
+Sign into the Azure VM which has been created for you using Remote Desktop.
 
 ### Task 2: Download the lab files
 
@@ -80,7 +80,7 @@ Download the lab artifacts from GitHub.
 
 In this task, you will navigate to the Azure resource group you will deploy resources into throughout this lab. This resource group should correspond to your assigned team number.
 
-> **Note**: The resource group name used throughout this lab is *Fabrikam_Oil*. When deploying new resources, always select your assigned resource group. 
+> **Note**: The resource group name used throughout pictoral descriptions in this lab is *Fabrikam_Oil*. When deploying new resources, always select your assigned resource group. 
 
 <!-- 1. Log into the [Azure Portal](https://portal.azure.com).
 
@@ -117,7 +117,7 @@ Azure Databricks is used to train and deploy a machine learning model that predi
    | Field                          | Value                                      |
    | ------------------------------ | ------------------------------------------ |
    | Subscription                   | _select the appropriate subscription_      |
-   | Resource Group                 | _select use existing, then `Fabrikam_Oil`_ |
+   | Resource Group                 | _select use existing, then `YOUR_RESOURCE_GROUP`_ |
    | Workspace name                 | _globally unique name_                     |
    | Location                       | _select the location nearest to you_       |
    | Pricing tier                   | _select Standard_                          |
@@ -186,7 +186,7 @@ In this task, you will import a Databricks notebook into your workspace.
    | Field          | Value                                      |
    | -------------- | ------------------------------------------ |
    | Subscription   | _select the appropriate subscription_      |
-   | Resource Group | _select `Fabrikam_Oil`_ |
+   | Resource Group | _select `YOUR_RESOURCE_GROUP`_ |
    | Workspace name | _globally unique name_                     |
    | Region         | _select the region nearest to you_         |
    | Storage account | _keep the default_ |
