@@ -144,7 +144,7 @@ Azure Databricks is used to train and deploy a machine learning model that predi
    | -------------------------- | -------------------------------------------------------------------------------------------- |
    | Cluster name               | _enter `lab`_                                                                                |
    | Cluster Mode               | _select `Standard`_                                                                          |
-   | Pool                       | _select `None`_                                                                              |
+   <!-- | Pool                       | _select `None`_                                                                              | -->
    | Databricks Runtime Version | _select `Runtime: 8.1 (Scala 2.12, Spark 3.1.1)`_                                         |
    | Autopilot Options          | _uncheck `Enable autoscaling` and check `Terminate after...`, with a value of `120` minutes_ |
    | Worker Type                | _select `Standard_DS3_v2`_                                                                   |
